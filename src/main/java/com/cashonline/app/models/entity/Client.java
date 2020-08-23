@@ -25,6 +25,7 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(unique = true)
 	private String email;
 	
 	@Column(name = "first_name")
@@ -35,7 +36,7 @@ public class Client implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
-	private List<Loan> loans;
+	private List<Loan> loans = new ArrayList<Loan>();
 	
 	public Client() {
 		
@@ -45,7 +46,6 @@ public class Client implements Serializable {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.loans = new ArrayList<Loan>();
 	}
 	
 	public Long getId() {

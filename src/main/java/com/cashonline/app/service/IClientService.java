@@ -12,5 +12,8 @@ public interface IClientService {
 	
 	public Client findById(Long Id);
 	
+	public Client save(Client client);
+	
+	public void delete(Long id);
 	
 }
