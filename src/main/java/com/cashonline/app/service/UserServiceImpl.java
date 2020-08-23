@@ -9,24 +9,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cashonline.app.config.exception.InternalServerErrorException;
 import com.cashonline.app.config.exception.NotFoundException;
-import com.cashonline.app.models.entity.Client;
-import com.cashonline.app.models.repository.IClientRepository;
+import com.cashonline.app.models.entity.User;
+import com.cashonline.app.models.repository.IUserRepository;
+
 
 @Service
-public class ClientServiceImpl implements IClientService {
+public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	private IClientRepository clientDao;
+	private IUserRepository userRepository;
 
 	@Override
 	@Transactional(readOnly = true)
-	public Client findById(Long id) {
+	public User findById(Long id) {
 		try {
-			Optional<Client> oClient = clientDao.findById(id);
-			if(!oClient.isPresent()) {
-				throw new NotFoundException("El cliente con id " + id + " no existe");
+			Optional<User> oUser = userRepository.findById(id);
+			if(!oUser.isPresent()) {
+				throw new NotFoundException("El usuario con id " + id + " no existe");
 			}
-			return oClient.get();
+			return oUser.get();
 		}catch (DataAccessException e) {
 			throw new InternalServerErrorException(e.getMessage());
 		}
@@ -34,9 +35,9 @@ public class ClientServiceImpl implements IClientService {
 	
 	@Override
 	@Transactional
-	public Client save(Client client) {
+	public User save(User user) {
 		try {
-			return clientDao.save(client);
+			return userRepository.save(user);
 		}catch (DataAccessException e) {
 			throw new InternalServerErrorException(e.getMessage());
 		}
@@ -46,7 +47,7 @@ public class ClientServiceImpl implements IClientService {
 	@Transactional
 	public void delete(Long id) {
 	try{
-		clientDao.deleteById(id);
+		userRepository.deleteById(id);
 	}catch (DataAccessException e) {
 		throw new InternalServerErrorException(e.getMessage());
 	}

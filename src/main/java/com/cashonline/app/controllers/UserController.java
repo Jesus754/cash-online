@@ -14,40 +14,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cashonline.app.models.entity.Client;
-import com.cashonline.app.service.IClientService;
+import com.cashonline.app.models.entity.User;
+import com.cashonline.app.service.IUserService;
 
 
 @RestController
-public class ClientController {
+public class UserController {
 	
 	@Autowired 
-	private IClientService clientService;
+	private IUserService userService;
 	
 	@PostMapping("/users")
-	public ResponseEntity<?> CreateClient(@RequestBody Client client) {
-		Client clientResponse = clientService.save(client);
+	public ResponseEntity<?> CreateUser(@RequestBody User user) {
+		User userResponse = userService.save(user);
 		Map<String,Object> response = new HashMap<>();
-		response.put("message", "Cliente creado con exito");
-		response.put("client", clientResponse);
+		response.put("message", "Usuario creado con exito");
+		response.put("user", userResponse);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(response);
 	}
 	
 	@GetMapping("users/{id}")
-	public ResponseEntity<?> getClient(@PathVariable Long id) {
-		Client client = clientService.findById(id);
+	public ResponseEntity<?> getUser(@PathVariable Long id) {
+		User user = userService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(client);
+				.body(user);
 	}
 	
 	@DeleteMapping("users/{id}")
-	public ResponseEntity<?> deleteClient(@PathVariable Long id) {
-		clientService.delete(id);
+	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		userService.delete(id);
 		Map<String,Object> response = new HashMap<>();
-		response.put("message", "Cliente eliminado con exito");
+		response.put("message", "Usuario eliminado con exito");
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(response);
