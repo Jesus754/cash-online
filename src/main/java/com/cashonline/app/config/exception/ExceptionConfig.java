@@ -1,4 +1,4 @@
-package com.cashonline.app.config;
+package com.cashonline.app.config.exception;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.cashonline.app.config.exception.BadRequestException;
-import com.cashonline.app.config.exception.InternalServerErrorException;
-import com.cashonline.app.config.exception.NotFoundException;
 
 @ControllerAdvice(annotations = RestController.class)
 public class ExceptionConfig {
