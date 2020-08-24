@@ -47,6 +47,9 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public void delete(Long id) {
 	try{
+		Optional<User> oUser = userRepository.findById(id);
+		if (!oUser.isPresent())
+			throw new NotFoundException("El usuario con id " + id + " no existe");
 		userRepository.deleteById(id);
 	}catch (DataAccessException e) {
 		throw new InternalServerErrorException(e.getMessage());

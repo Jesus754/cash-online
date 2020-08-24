@@ -3,6 +3,8 @@ package com.cashonline.app.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import com.cashonline.app.service.ILoanService;
 
 @RestController
 public class LoanController {
+	
+	private static final Logger LOGGER = LogManager.getLogger(LoanController.class);
 	
 	@Autowired 
 	private ILoanService loanService;
@@ -35,6 +39,12 @@ public class LoanController {
 		paging.put("total",page.getTotalElements());
 		response.put("items", page.getContent());
 		response.put("pagins", paging);
+		
+		StringBuilder logMessage = new StringBuilder("GET /loans?page=" + pageValue.toString() + "&size=" + sizeValue.toString());
+		if(userId != null)
+			logMessage.append("&user_id=" + userId.toString());
+		logMessage.append(" - CORRECTO");
+		LOGGER.info(logMessage);
 		
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
