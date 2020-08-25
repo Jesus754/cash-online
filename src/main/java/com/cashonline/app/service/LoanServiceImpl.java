@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.cashonline.app.config.exception.BadRequestException;
 import com.cashonline.app.config.exception.InternalServerErrorException;
 import com.cashonline.app.models.entity.Loan;
 import com.cashonline.app.models.repository.ILoanRepository;
@@ -20,13 +19,12 @@ public class LoanServiceImpl implements ILoanService{
 
 	
 
-	public Page<Loan> findAll(Integer page, Integer size, Long userId) { 
-		if (page < 1)
-			throw new BadRequestException("El parametro page no puede ser menor a 1");
+	public Page<Loan> findAll(PageRequest pageRequest, Long userId) {
 		try {
-			PageRequest pageRequest = PageRequest.of(page - 1, size);
-			if (userId != null )
-				return ILoanRepository.findByUserId(userId, pageRequest);
+			System.out.println(userId);
+			if (userId != null ) {
+				return ILoanRepository.findByUserId(pageRequest, userId);
+			}
 			return ILoanRepository.findAll(pageRequest);
 		}catch (DataAccessException e) {
 			throw new InternalServerErrorException(e.getMessage());
