@@ -24,7 +24,7 @@ public class Loan implements Serializable{
 	@Column(name = "user_id")
 	private Long userId;
 	
-	
+	public Loan() {}
 	
 	public Long getId() {
 		return id;

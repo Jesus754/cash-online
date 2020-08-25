@@ -32,6 +32,8 @@ public class LoanController {
 			@RequestParam(name = "size") Integer sizeValue,
 			@RequestParam(name = "user_id", required = false) Long userId) {
 		
+		if (pageValue < 1 && sizeValue < 1 )
+			throw new BadRequestException("El parametro page y size no pueden ser menores a 1");
 		if (pageValue < 1)
 			throw new BadRequestException("El parametro page no puede ser menor a 1");
 		if (sizeValue < 1)

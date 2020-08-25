@@ -21,7 +21,6 @@ public class LoanServiceImpl implements ILoanService{
 
 	public Page<Loan> findAll(PageRequest pageRequest, Long userId) {
 		try {
-			System.out.println(userId);
 			if (userId != null ) {
 				return ILoanRepository.findByUserId(pageRequest, userId);
 			}
