@@ -8,5 +8,5 @@ import com.cashonline.app.models.entity.User;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
 	
-	
+	 Boolean existsByEmail(String email);
 }

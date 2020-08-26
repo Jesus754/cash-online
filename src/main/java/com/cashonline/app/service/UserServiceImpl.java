@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cashonline.app.config.exception.BadRequestException;
 import com.cashonline.app.config.exception.InternalServerErrorException;
 import com.cashonline.app.config.exception.NotFoundException;
 import com.cashonline.app.models.entity.User;
@@ -37,6 +38,9 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public User save(User user) {
 		try {
+			if(userRepository.existsByEmail(user.getEmail())) {
+				throw new BadRequestException("El email se encuentra registrado en el sistema");
+			}
 			return userRepository.save(user);
 		}catch (DataAccessException e) {
 			throw new InternalServerErrorException(e.getMessage());
